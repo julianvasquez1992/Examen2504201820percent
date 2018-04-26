@@ -1,0 +1,36 @@
+CREATE TABLESPACE MID_TERM
+DATAFILE 'C:\Examen25042018\Julian.dat' SIZE 20M
+ONLINE;
+
+CREATE PROFILE EXAM LIMIT
+FAILED_LOGIN_ATTEMPTS 2
+IDLE_TIME 5;
+
+CREATE USER EJERCICIOS 
+IDENTIFIED BY EJERCICIOS
+    DEFAULT TABLESPACE MID_TERM 
+    QUOTA UNLIMITED ON MID_TERM
+    PROFILE EXAM;
+
+
+CREATE OR REPLACE FUNCTION FUNCTION_1
+    (A IN NUMBER, B IN NUMBER, C IN NUMBER)
+       RETURN VARCHAR
+        IS
+        OUTVAR VARCHAR(255) := '5';
+   BEGIN 
+   
+    IF B>=C THEN
+        OUTVAR := (A || '/' || A*B || '/' || 'andres');
+        RETURN OUTVAR;
+    ELSE
+        OUTVAR := (A || '/' || A*B || '/' || 'martinez');
+        RETURN OUTVAR; 
+    END IF;
+    
+    RETURN OUTVAR;
+
+    END;
+    
+select FUNCTION_1(1,2,3) from dual;
+select FUNCTION_1(3,2,1) from dual;
